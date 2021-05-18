@@ -19,12 +19,14 @@ public class MainActivity extends AppCompatActivity {
 
             plan: implement in shared preferences if the user is logged in.
             when login is successful, save in sharedpreferences.
-            when user logs out, delete login data in shared preferences. 
+            when user logs out, delete login data in shared preferences.
          */
 
         // goes to LoginActivity
         Intent intentLogin = new Intent(this,  LoginActivity.class);
         startActivity(intentLogin);
+        finish();
+
 
         // TODO codes for going to the employer's homepage
 

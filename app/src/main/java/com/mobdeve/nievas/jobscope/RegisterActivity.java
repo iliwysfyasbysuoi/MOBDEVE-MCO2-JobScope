@@ -9,8 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etUsername;
     private EditText etPassword;
@@ -19,13 +18,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
 
-        // finds the views
-        this.etUsername = findViewById(R.id.etUsername);
-        this.etPassword = findViewById(R.id.etPassword);
+
         this.btnLogin = findViewById(R.id.btnLogin);
         this.btnRegister = findViewById(R.id.btnRegister);
 
@@ -34,41 +30,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         this.btnRegister.setOnClickListener(this);
 
 
-
-
-
-
-
-
-
-
     }
 
     @Override
     public void onClick(View v) {
-
         switch(v.getId()){
 
             case R.id.btnLogin:{
-                /* TODO code for credential validation
-                   use MongoDB database
-                 */
+
+                // goes to LoginActivity
+                Intent intentLogin = new Intent(this,  LoginActivity.class);
+                startActivity(intentLogin);
+                finish(); //close RegisterActivity because there's a button for navigating back to LoginActivity na
+
+
             } break;
 
             case R.id.btnRegister: {
 
-                Log.d("LOGIN", "Register button clicked");
-
-                // goes to RegisterActivity
-                Intent intentRegister = new Intent(this,  RegisterActivity.class);
-                startActivity(intentRegister);
-                finish(); //close LoginActivity because there's a button for navigating back to LoginActivity na
+                /* TODO code register/ storing credentials to db
+                   use MongoDB database
+                 */
 
             } break;
 
 
 
         }
-
     }
 }
