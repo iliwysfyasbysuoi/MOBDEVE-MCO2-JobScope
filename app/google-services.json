@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "174425006588",
+    "project_id": "jobscope-4c138",
+    "storage_bucket": "jobscope-4c138.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:174425006588:android:710074e12c51c6d9371279",
+        "android_client_info": {
+          "package_name": "com.mobdeve.nievas.jobscope"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "174425006588-gsl5u252q0otukkcr983qkmpsvcd6rg3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8tOOAvmOdbI0Sg5yCYdibwcN15KZZn8Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "174425006588-gsl5u252q0otukkcr983qkmpsvcd6rg3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
