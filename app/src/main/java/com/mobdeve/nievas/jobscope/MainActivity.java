@@ -2,8 +2,11 @@ package com.mobdeve.nievas.jobscope;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -11,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    private SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +33,28 @@ public class MainActivity extends AppCompatActivity {
             when user logs out, delete login data in shared preferences.
          */
 
-        // goes to LoginActivity
-        Intent intentLogin = new Intent(this,  LoginActivity.class);
-        startActivity(intentLogin);
-        finish();
+        sharedpreferences = getSharedPreferences("SavedPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        String currentUser = sharedpreferences.getString("LOGGED_USER_KEY", "");
+
+        Toast.makeText(this, currentUser, Toast.LENGTH_LONG).show();
+
+        if(currentUser.equals("none") == true || currentUser.equals("") == true ){
+            // goes to LoginActivity
+            Intent intentLogin = new Intent(this,  LoginActivity.class);
+            startActivity(intentLogin);
+            finish();
+
+        }else{
+            // TODO codes for going to the employer's homepage
+            Intent intentEmployersHomepage = new Intent(this,  ApplicationsTrackerActivity.class);
+            startActivity(intentEmployersHomepage);
+            finish();
+        }
 
 
-        // TODO codes for going to the employer's homepage
+
+
 
 
 

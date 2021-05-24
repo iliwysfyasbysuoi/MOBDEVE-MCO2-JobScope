@@ -3,7 +3,9 @@ package com.mobdeve.nievas.jobscope;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,6 +44,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btnLogin;
     private Button btnRegister;
 
+    private SharedPreferences sharedpreferences; //for storing current logged user
+
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
     private String BASE_URL = "http://10.0.2.2:3000"; //localhost of computer or emulator idk
@@ -51,6 +55,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
 
         // for connecting to mongodb/js server
         retrofit = new Retrofit.Builder()
@@ -105,12 +111,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
                         if(response.code() == 200){
 
-//                            LoginResult result = response.body(); // the result from server
+                            LoginResult result = response.body(); // the result from server
 //                            AlertDialog.Builder builder1 = new AlertDialog.Builder(LoginActivity.this);
 //                            builder1.setTitle(result.getUsername());
 //                            builder1.setMessage(result.getName());
 //                            builder1.show();
+
+                            sharedpreferences = getSharedPreferences("SavedPreferences", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            // stores username to LOGGED_USER_KEY to know who is currently logged in
+                            editor.putString("LOGGED_USER_KEY", result.getUsername());
+                            editor.commit();
+
                             Toast.makeText(LoginActivity.this, "Credentials Match", Toast.LENGTH_LONG).show();
+                            Intent intentApplicationsTrackerActivity = new Intent(LoginActivity.this,  ApplicationsTrackerActivity.class);
+                            startActivity(intentApplicationsTrackerActivity);
 
                         } else if(response.code() == 404){
                             Toast.makeText(LoginActivity.this, "Wrong credentials", Toast.LENGTH_LONG).show();
@@ -146,57 +161,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    private void handleLoginDialog() {
-
-        View view = getLayoutInflater().inflate(R.layout.activity_login, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        builder.setView(view).show();
-
-        this.etUsername = findViewById(R.id.etUsername);
-        this.etPassword = findViewById(R.id.etPassword);
-        this.btnLogin = findViewById(R.id.btnLogin);
-
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // serves as a bridge for data from UI to server
-                HashMap<String, String> map = new HashMap<>();
-                map.put("username", etUsername.getText().toString());
-                map.put("password", etPassword.getText().toString());
-
-                Call<LoginResult> call = retrofitInterface.executeLogin(map);
-
-                // calls an http request
-                call.enqueue(new Callback<LoginResult>() {
-                    @Override
-                    public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
-                        if(response.code() == 200){
-
-                            LoginResult result = response.body();
-                            AlertDialog.Builder builder1 = new AlertDialog.Builder(LoginActivity.this);
-                            builder1.setTitle(result.getUsername());
-                            builder1.setMessage(result.getName());
-                            builder1.show();
-                        } else if(response.code() == 404){
-                            Toast.makeText(LoginActivity.this, "Wrong credentials", Toast.LENGTH_LONG).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<LoginResult> call, Throwable t) {
-                        //shows the error
-                        Toast.makeText(LoginActivity.this, t.getMessage() ,
-                                       Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            }
-        });
 
 
 
 
-    }
+
 }
