@@ -38,7 +38,6 @@ public class ApplicationsTrackerActivity extends AppCompatActivity implements Vi
         btnLogout.setOnClickListener(this);
         btnMyJobListing.setOnClickListener(this);
 
-
     }
 
     @Override

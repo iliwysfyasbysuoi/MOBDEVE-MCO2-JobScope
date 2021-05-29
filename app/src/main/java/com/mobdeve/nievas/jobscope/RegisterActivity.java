@@ -1,7 +1,5 @@
 package com.mobdeve.nievas.jobscope;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;

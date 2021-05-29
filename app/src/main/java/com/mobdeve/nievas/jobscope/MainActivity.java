@@ -13,7 +13,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
     private SharedPreferences sharedpreferences;
 
     @Override
@@ -51,13 +50,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intentEmployersHomepage);
             finish();
         }
-
-
-
-
-
-
-
 
 
 
