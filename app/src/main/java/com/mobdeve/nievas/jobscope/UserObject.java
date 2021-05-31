@@ -14,6 +14,14 @@ public class UserObject {
 
     }
 
+    public UserObject(String name, String email, String username, String password, String type) {
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.type = type;
+    }
+
     public String getEmail() {
         return email;
     }
